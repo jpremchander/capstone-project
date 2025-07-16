@@ -1,0 +1,52 @@
+<div class="payment-container">
+    <h2>Review Your Order</h2>
+    
+    <div ng-if="data.cart.total != 0" class="order-summary">
+        <div class="summary-header">
+            <div class="header-product">Product</div>
+            <div class="header-quantity">Qty</div>
+            <div class="header-price">Price</div>
+        </div>
+        
+        <div class="summary-item" ng-repeat="item in data.cart.items">
+            <div class="item-product">{{ item.name }}</div>
+            <div class="item-quantity">{{ item.qty }}</div>
+            <div class="item-price">€{{ item.subtotal.toFixed(2) }}</div>
+        </div>
+        
+        <div class="summary-totals">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span>€{{ (data.cart.total - data.cart.tax).toFixed(2) }}</span>
+            </div>
+            <div class="total-row">
+                <span>Tax:</span>
+                <span>€{{ data.cart.tax.toFixed(2) }}</span>
+            </div>
+            <div class="total-row grand-total">
+                <span>Total:</span>
+                <span>€{{ data.cart.total.toFixed(2) }}</span>
+            </div>
+        </div>
+        
+        <div class="payment-actions">
+            <button ng-disabled="data.buttonDisabled" ng-click="pay()" class="btn-primary">
+                <span ng-if="!data.buttonDisabled">Complete Purchase</span>
+                <span ng-if="data.buttonDisabled">Processing...</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="payment-message" ng-class="{'success': data.message.includes('Order placed'), 'error': data.message.includes('ERROR')}" ng-if="data.message">
+        {{ data.message }}
+    </div>
+    
+    <div ng-if="data.cont" class="order-success">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Thank you for your order!</h3>
+        <p>Your purchase has been completed successfully.</p>
+        <a href="/" class="btn-primary">Continue Shopping</a>
+    </div>
+</div>

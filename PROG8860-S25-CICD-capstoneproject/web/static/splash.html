@@ -1,0 +1,32 @@
+<div class="splash-container">
+    <div class="hero-section">
+        <h1>Welcome to Stan's Robot Shop</h1>
+        <p class="hero-text">Meet Stan's amazing robotic friends - perfect companions for home and business</p>
+        <a href="#/search/all" class="btn-primary">Browse Robots</a>
+    </div>
+    
+    <div class="about-section">
+        <h2>About This Application</h2>
+        <p>This is a microservices ecommerce application built with cutting-edge technologies:</p>
+        
+        <div class="tech-grid">
+            <div class="tech-card" ng-repeat="tech in ['AngularJS', 'Nginx', 'NodeJS', 'Java', 'Python', 'Golang', 'PHP', 'MongoDB', 'Redis', 'MySQL']">
+                <div class="tech-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="tech-name">{{ tech }}</div>
+            </div>
+        </div>
+        
+        <p>When deployed in an Instana-monitored environment, all technology stacks are automatically detected and monitored with minimal configuration. Every request is traced end-to-end.</p>
+        
+        <div class="cta-buttons">
+            <a href="https://instana.com/" target="_blank" class="btn-secondary">
+                Learn About Instana
+            </a>
+            <a href="https://github.com/instana/robot-shop" target="_blank" class="btn-secondary">
+                View on GitHub
+            </a>
+        </div>
+    </div>
+</div>

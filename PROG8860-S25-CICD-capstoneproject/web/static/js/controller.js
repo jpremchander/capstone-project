@@ -47,22 +47,19 @@
     }]);
 
     // clear template fragment cache, development
-    // TODO - disable this later
     robotshop.run(function($rootScope, $templateCache) {
         $rootScope.$on('$viewContentLoaded', function() {
-            console.log('>>> clearing cache');
             $templateCache.removeAll();
         });
 
         // Instana EUM
-        // may not be loaded so check for ineum object
         $rootScope.$on('$routeChangeSuccess', (event, next, current) => {
             if(typeof ineum !== 'undefined') {
-                //console.log('route change', event, next, current);
                 ineum('page', next.loadedTemplateUrl);
             }
         });
     });
+
 
     robotshop.controller('shopform', function($scope, $http, $location, currentUser) {
         $scope.data = {};

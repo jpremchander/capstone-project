@@ -1,0 +1,28 @@
+<div class="search-container">
+    <div ng-if="data.searchResults.length == 0" class="no-results">
+        <i class="fas fa-search"></i>
+        <h3>No results found</h3>
+        <p>We couldn't find any robots matching your search.</p>
+        <a href="/" class="btn-primary">Browse All Robots</a>
+    </div>
+    
+    <div ng-if="data.searchResults.length != 0" class="search-results">
+        <h2>Search Results</h2>
+        <p class="results-count">{{ data.searchResults.length }} robots found</p>
+        
+        <div class="results-grid">
+            <div class="result-card" ng-repeat="item in data.searchResults">
+                <a href="/product/{{ item.sku }}" class="result-link">
+                    <div class="result-image">
+                        <img src="/images/{{ item.sku }}.png" alt="{{ item.name }}"/>
+                    </div>
+                    <div class="result-details">
+                        <h3 class="result-title">{{ item.name }}</h3>
+                        <p class="result-description">{{ item.description | limitTo: 100 }}{{item.description.length > 100 ? '...' : ''}}</p>
+                        <div class="result-price">€{{ item.price.toFixed(2) }}</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

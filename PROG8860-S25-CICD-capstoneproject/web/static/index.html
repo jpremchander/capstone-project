@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="robotshop">
+<head>
+    <!--# include file="eum.html" -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stan's Robot Shop</title>
+    <link rel="shortcut icon" type="image/png" href="/media/instana_icon_square.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auto-complete.css">
+    <meta http-equiv="Cache-Control" content="no-Cache">
+    <meta http-equiv="Pragma" content="no-cache">
+</head>
+
+<body ng-controller="shopform">
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="/" class="logo-link">
+                    <img src="/media/stan.png" alt="Stan" class="logo-img">
+                    <h1>Stan's Robot Shop</h1>
+                </a>
+            </div>
+            
+            <div class="search-container">
+                <form class="search-form">
+                    <input type="text" placeholder="Search robots..." ng-model="data.searchText" class="search-input">
+                    <button ng-click="search()" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="user-actions">
+                <a href="login" class="auth-link">
+                    <i class="fas fa-user"></i>
+                    <span>Login / Register</span>
+                </a>
+                <a href="cart" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" ng-if="data.cart.total != 0">€{{ data.cart.total.toFixed(2) }}</span>
+                    <span class="cart-badge empty" ng-if="data.cart.total == 0">Empty</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <h3 class="sidebar-title">Categories</h3>
+            <ul class="category-list">
+                <li ng-repeat="cat in data.categories" class="category-item">
+                    <div ng-click="getProducts(cat)" class="category-header">
+                        <span class="category-name">{{ cat }}</span>
+                        <i class="fas fa-chevron-down" ng-if="!data.products[cat]"></i>
+                        <i class="fas fa-chevron-up" ng-if="data.products[cat]"></i>
+                    </div>
+                    <ul class="product-list" ng-if="data.products[cat]">
+                        <li ng-repeat="prod in data.products[cat]" class="product-item">
+                            <a href="product/{{ prod.sku }}" class="product-link">{{ prod.name }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div ng-view class="view-container"></div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">{{ data.uniqueid }}</p>
+            <p class="footer-copyright">© 2023 Stan's Robot Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.js"></script>
+    <script src="/js/auto-complete.js"></script>
+    <script src="/js/controller.js"></script>
+    <script type="text/javascript">
+        angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+    </script>
+</body>
+</html>

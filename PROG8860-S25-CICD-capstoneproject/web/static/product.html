@@ -1,0 +1,55 @@
+<div class="product-container">
+    <div class="alert" ng-class="{'alert-success': data.message.includes('Added'), 'alert-error': data.message.includes('ERROR')}" ng-if="data.message">
+        {{ data.message }}
+    </div>
+
+    <div class="product-card">
+        <div class="product-image-container">
+            <img class="product-image" src="/images/{{ data.product.sku }}.png" alt="{{ data.product.name }}"/>
+        </div>
+        
+        <div class="product-details">
+            <h2 class="product-title">{{ data.product.name }}</h2>
+            
+            <div class="product-rating">
+                <div class="rating-stars">
+                    <span ng-repeat="vote in [1,2,3,4,5]">
+                        <i class="fas fa-star rating-star" 
+                           ng-class="{'filled': vote <= data.rating.avg_rating}" 
+                           ng-mouseover="glowstan(vote, 1.0)" 
+                           ng-mouseleave="glowstan(vote, 0.5)" 
+                           ng-click="rateProduct(vote)"></i>
+                    </span>
+                </div>
+                <div class="rating-text">
+                    <span ng-if="data.rating.avg_rating != 0">
+                        {{ data.rating.avg_rating.toFixed(1) }} ({{ data.rating.rating_count }} votes)
+                    </span>
+                    <span ng-if="data.rating.avg_rating == 0">
+                        No ratings yet - be the first!
+                    </span>
+                </div>
+            </div>
+            
+            <p class="product-description">{{ data.product.description }}</p>
+            
+            <div class="product-actions">
+                <div class="product-price">€{{ data.product.price.toFixed(2) }}</div>
+                
+                <div ng-if="data.product.instock == 0" class="out-of-stock">
+                    <i class="fas fa-times-circle"></i> Currently out of stock
+                </div>
+                
+                <div ng-if="data.product.instock != 0" class="add-to-cart">
+                    <div class="quantity-selector">
+                        <label>Quantity:</label>
+                        <input type="number" min="1" max="10" ng-model="data.quantity" class="quantity-input"/>
+                    </div>
+                    <button class="btn-primary" ng-click="addToCart()">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
